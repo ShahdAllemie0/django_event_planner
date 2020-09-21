@@ -110,8 +110,10 @@ def book_ticket(request, event_id):
 				return redirect('event')
 			event_obj.seats-=book_from.seats
 			if event_obj.seats>=0:
-				event_obj.seats-=book_from.seats
+				seat=event_obj.seats-book_from.seats
+				event_obj.save()
 				book_from.save()
+
 				messages.success(request, "Successfully Booked!")
 				return redirect('event')
 			else:
