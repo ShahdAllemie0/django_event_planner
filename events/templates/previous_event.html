@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br /><br /><br /><br />
+
+  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+  my previous event
+  </div>
+  <table class="table" >
+    <thead>
+      <tr>
+        <th>Event's Name</th>
+        <th>Number of seats</th>
+
+      </tr>
+    </thead>
+    <tbody>
+  {%for guest in guests%}
+<tr>
+  <td>{{guest.event}}</td>
+  <td>{{guest.seats}}</td>
+  
+
+
+</tr>
+{%endfor%}
+</tbody>
+</table>
+
+{% endblock content %}

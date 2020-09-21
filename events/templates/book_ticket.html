@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class=container>
+  <div>
+    <br /><br /><br /><br />
+	<form action="{% url 'book-ticket' event.id %}" method="POST" >
+		{% csrf_token %}
+		{{form|crispy}}
+		<input type="submit" value="Book" class="btn" style="background-color: #e3f2fd; color: black;">
+	</form>
+</div>  </div>
+<br />
+<br />
+<br />
+{% endblock content %}

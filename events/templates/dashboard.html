@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br /><br /><br /><br />
+<div class='container'>
+<div class="card text-center">
+  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+    {{request.user}} Dashboard
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Available seat</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Organizer</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {%for event in events%}
+      <tr>
+        <td scope="row">{{event.title}}</td>
+        <td>{{event.description}}</td>
+        <td>{{event.seats}}</td>
+        <td>{{event.date}}</td>
+        <td>{{event.time}}</td>
+        <td>{{event.location}}</td>
+        <td>{{event.organizer}}</td>
+        <td>  <a href="{% url 'event-detail' event.id %}" class="btn" style="background-color: #e3f2fd; color: black;">View</a></td>
+        <!-- <td>
+          {% if request.user == classroom.teacher %}
+          <a href="{% url 'student-update' classroom.id student.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
+          <a href="{% url 'student-delete' classroom.id student.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+          {%endif%}
+        </td> -->
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+
+<br /><br />
+  <a href="{% url 'event-create' %}" class="btn" style="background-color: #FFA500; color: #000034;">Create Event</a>
+</div>
+<br /><br /><br /><br />
+{%endblock%}

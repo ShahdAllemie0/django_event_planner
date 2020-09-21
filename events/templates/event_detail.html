@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br /><br /><br /><br />
+<div class='container'>
+
+<div class="card text-center">
+  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+     Event Details
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Title: {{event.title}}</h5>
+    <p class="card-text">Description: {{event.description}}</p>
+    <p class="card-text">Available seat: {{event.seats}}</p>
+    <p class="card-text">Date: {{event.date}}</p>
+    <p class="card-text">Time: {{event.time}}</p>
+    <p class="card-text">Location: {{event.location}}</p>
+    <p class="card-text">Organizer: {{event.organizer}}</p>
+
+    {% if request.user == event.organizer %}
+
+      <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+        {{request.user}} Dashboard
+      </div>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>Guest Name</th>
+            <th>Number of seats</th>
+            <th>Event Name</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+
+    {%for guest in guests%}
+
+    <tr>
+      <td scope="row">{{guest.guest}}</td>
+      <td>{{guest.seats}}</td>
+      <td>{{guest.event}}</td>
+
+
+
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+{%endif%}
+  <div class="card text-center">
+  {% if request.user == event.organizer %}
+    <a href="{% url 'event-update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a><br />
+    {%endif%}
+    {% if request.user.is_authenticated%}
+    <a href="{% url 'book-ticket' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Book Ticket</a><br />
+</div>
+    {%endif%}
+
+
+
+
+
+
+  </div>
+
+
+  <br /><br />
+  <br />  <br /><br />
+    <br />  <br /><br />
+      <br />
+
+
+{% endblock content %}
