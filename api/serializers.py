@@ -84,5 +84,5 @@ class GuestEventSerializer(serializers.ModelSerializer):
 			fields=['title', 'date', 'time', 'guests',]
 
 		def get_guests(self,obj):
-			myevent = EventGuest.objects.all()
+			myevent = obj.gustevent.all()
 			return GuestSerializer(myevent,many=True).data

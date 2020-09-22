@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.generics import ListAPIView, RetrieveAPIView,CreateAPIView,RetrieveUpdateAPIView
 from events.models import Event,EventGuest
 from .serializers import (SignUpSerializer,EventSerializer,CreateEventSerializer,

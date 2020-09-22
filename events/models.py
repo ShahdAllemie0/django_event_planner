@@ -9,16 +9,16 @@ class Event(models.Model):
     time=models.TimeField()
     location=models.CharField(max_length=100)
     seats=models.PositiveIntegerField()
-    organizer=models.ForeignKey(User,on_delete=models.CASCADE)
+    organizer=models.ForeignKey(User,on_delete=models.CASCADE,related_name='events')
 
     def __str__(self):
         return self.title
 
 
 class EventGuest(models.Model):
-    guest=models.ForeignKey(User,on_delete=models.CASCADE)
+    guest=models.ForeignKey(User,on_delete=models.CASCADE,related_name='guest')
     seats=models.PositiveIntegerField()
-    event=models.ForeignKey(Event,on_delete=models.CASCADE)
+    event=models.ForeignKey(Event,on_delete=models.CASCADE,related_name='gustevent')
 
 
     def __str__(self):
