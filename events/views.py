@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Event,EventGuest
 from datetime import datetime
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 from django.shortcuts import render
@@ -40,6 +41,14 @@ def previous_event(request):
 
 def Events(request):
 	events = Event.objects.filter(date__gt=datetime.today())
+	query = request.GET.get('q')
+	if query:
+		events = events.filter(
+				   Q(title__icontains=query)|
+				   Q(description__icontains=query)|
+				   Q(organizer__username__icontains=query)
+					   ).distinct()
+
 
 	context = {
 		"events": events,
@@ -170,7 +179,12 @@ class Login(View):
 			if auth_user is not None:
 				login(request, auth_user)
 				messages.success(request, "Welcome Back!")
-				return redirect('event')
+				events = Event.objects.filter(organizer=auth_user)
+				if events:
+					return redirect('dashboard')
+				else:
+					return redirect('event')
+
 			messages.warning(request, "Wrong email/password combination. Please try again.")
 			return redirect("login")
 		messages.warning(request, form.errors)

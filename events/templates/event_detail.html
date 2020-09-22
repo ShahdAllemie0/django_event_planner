@@ -53,7 +53,11 @@
   {% if request.user == event.organizer %}
     <a href="{% url 'event-update' event.id %}" class="btn" style="background-color: #000034; color: white;">Update</a><br />
     {%endif%}
-    {% if request.user.is_authenticated%}
+    {% if request.user.is_authenticated and event.seats == 0 %}
+    <a href="{% url 'event'  %}" class="btn" style="background-color:red; color: #000034;">FULL</a><br />
+</div>
+    {% elif request.user.is_authenticated %}
+
     <a href="{% url 'book-ticket' event.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Book Ticket</a><br />
 </div>
     {%endif%}
